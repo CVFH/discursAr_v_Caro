@@ -26,9 +26,14 @@
 #'
 #' @export
 
+library(tidyverse)
+library(stringr)
 
 show_available_speech <- function(keyword = NULL, date = NULL, year = NULL, president = NULL, viewer = FALSE){
   
+  # url
+  
+  url <- "https://raw.githubusercontent.com/CVFH/discursAr_v_Caro/main/raw_data/all_raw.csv"
   
   # Check for internet coection
   attempt::stop_if_not(.x = curl::has_internet(),  # from eph package
@@ -46,7 +51,7 @@ httr::stop_for_status(x = check,
 
 # Get list of files from github data repo
 
-raw_data <- read.csv("raw_data/all_raw.csv") # poner enlace a .csv en git
+raw_data <- read.csv(url, encoding = "UTF-8") # poner enlace a .csv en git
 list_raw <- raw_data %>% 
   select(-c(discurso, link, fuente))
 
@@ -96,3 +101,5 @@ if(viewer == TRUE){
   list_raw
 }
 }
+
+show_available_speech(year=2019,president=alberto_fernandez)

@@ -170,6 +170,20 @@ raw_apertura %>%
 raw_ra %>% 
   write_csv(path = "raw_data/raw_ra.csv")
 
+
+# guardo base completa
+
+all_raw %>% 
+  write_csv(path = "raw_data/all_raw.csv")
+
+# guardo indice
+
+index_raw <- all_raw %>% 
+  select(-c(discurso, link, fuente))
+
+index_raw %>% 
+  write_csv(path = "raw_data/index_raw.csv")
+
 # por si las moscas: para leer después
 
 raw_nk  <- read.csv("raw_data/raw_nk.csv", encoding = "UTF-8")
@@ -178,8 +192,4 @@ raw_af   <- read.csv("raw_data/raw_af.csv", encoding = "UTF-8")
 raw_cfk   <- read.csv("raw_data/raw_cfk.csv", encoding = "UTF-8")
 raw_apertura  <- read.csv("raw_data/raw_apertura.csv", encoding = "UTF-8")
 raw_ra <- read.csv("raw_data/raw_ra.csv", encoding = "UTF-8")
-
-# guardo base completa
-
-all_raw %>% 
-  write_csv(path = "raw_data/all_raw.csv")
+all_raw <- read.csv("raw_data/all_raw.csv", encoding = "UTF-8")
