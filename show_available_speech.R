@@ -100,4 +100,4 @@ if(viewer == TRUE){
 }
 }
 
-show_available_speech(year=2019, president="alberto_fernandez", viewer=TRUE)
+show_available_speech(keyword = "Malvinas", president="alberto_fernandez", viewer=TRUE)
