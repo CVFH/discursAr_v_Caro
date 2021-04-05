@@ -33,7 +33,7 @@ show_available_speech <- function(keyword = NULL, date = NULL, year = NULL, pres
   
   # url
   
-  url <- "https://raw.githubusercontent.com/CVFH/discursAr_v_Caro/main/raw_data/all_raw.csv"
+  url <- "https://raw.githubusercontent.com/CVFH/discursAr_v_Caro/main/raw_data/index_raw.csv"
   
   # Check for internet coection
   attempt::stop_if_not(.x = curl::has_internet(),  # from eph package
@@ -51,9 +51,7 @@ httr::stop_for_status(x = check,
 
 # Get list of files from github data repo
 
-raw_data <- read.csv(url, encoding = "UTF-8") # poner enlace a .csv en git
-list_raw <- raw_data %>% 
-  select(-c(discurso, link, fuente))
+list_raw <- read.csv(url, encoding = "UTF-8")
 
 if (!is.null(keyword)){
   
@@ -102,4 +100,4 @@ if(viewer == TRUE){
 }
 }
 
-show_available_speech(year=2019,president=alberto_fernandez)
+show_available_speech(year=2019, president="alberto_fernandez", viewer=TRUE)
