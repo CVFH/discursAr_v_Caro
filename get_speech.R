@@ -29,7 +29,7 @@
 #'
 #' @export
 
-  get_speech <- function(keyword = NULL, date = NULL, year = NULL, president = NULL, speech_id = NULL,  raw = FALSE){
+get_speech <- function(keyword = NULL, date = NULL, year = NULL, president = NULL, speech_id = NULL,  raw = FALSE){
 
   ## Check for internet coection
   attempt::stop_if_not(.x = curl::has_internet(),
@@ -95,17 +95,21 @@
 
   # get RAW or Tidy (one token per row)
 
+   # get base data 
+  
+  all_speeches <- read.csv("https://raw.githubusercontent.com/CVFH/discursAr_v_Caro/main/raw_data/all_raw.csv", encoding = "UTF-8")
+  
   if(raw == FALSE){ #Tidy version of speech
-
-    return_speech <- posible_speeches %>% 
+    
+    return_speech <- all_speeches %>% 
       filter(id == search_id) %>% 
       funciones_limpios() 
     
   } else {
     
-    return_speech <- posible_speeches %>% 
+    return_speech <- all_speeches %>% 
       filter(id == search_id) %>% 
-      select(titulo, discurso) 
+      select(titulo, discurso) # tal vez una opcion para filtrar metadata?
   }
     
   return_speech 
