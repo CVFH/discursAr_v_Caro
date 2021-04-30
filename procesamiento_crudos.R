@@ -176,13 +176,19 @@ raw_ra %>%
 all_raw %>% 
   write_csv(path = "raw_data/all_raw.csv")
 
-# guardo indice
+# guardo indice, en dos versiones, por si las moscas
 
 index_raw <- all_raw %>% 
   select(-c(discurso, link, fuente))
 
 index_raw %>% 
   write_csv(path = "raw_data/index_raw.csv")
+
+index_raw_full <- all_raw %>%
+  select(-c(discurso)) 
+
+index_raw_full %>% 
+  write_csv(path = "raw_data/index_raw_full.csv")
 
 # por si las moscas: para leer después
 
@@ -193,3 +199,21 @@ raw_cfk   <- read.csv("raw_data/raw_cfk.csv", encoding = "UTF-8")
 raw_apertura  <- read.csv("raw_data/raw_apertura.csv", encoding = "UTF-8")
 raw_ra <- read.csv("raw_data/raw_ra.csv", encoding = "UTF-8")
 all_raw <- read.csv("raw_data/all_raw.csv", encoding = "UTF-8")
+
+## añadido posterior: 29 de abril  ####
+### vamos a guardar los archivos en otro formato ####
+
+all_raw <- read.csv("raw_data/all_raw.csv", encoding = "UTF-8")
+index_raw <- read.csv("raw_data/index_raw.csv", encoding = "UTF-8")
+
+
+for (i in 1:nrow(all_raw)){
+  
+  row <- all_raw[i, ]
+  discurso <- row$discurso %>%  as.character() 
+  discurso %>% 
+    write.table(file = paste("raw_data/", i, ".txt", sep=""))
+  
+}
+
+

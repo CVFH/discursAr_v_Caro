@@ -97,19 +97,19 @@ get_speech <- function(keyword = NULL, date = NULL, year = NULL, president = NUL
 
    # get base data 
   
- url <- paste0("https://raw.githubusercontent.com/CVFH/discursAr_v_Caro/main/raw_data/",
-               search_id , ".txt")
- 
- speech <- read.table(url) %>%  as.character()
+  all_speeches <- read.csv("https://raw.githubusercontent.com/CVFH/discursAr_v_Caro/main/raw_data/all_raw.csv", encoding = "UTF-8")
   
   if(raw == FALSE){ #Tidy version of speech
     
-    return_speech <-  speech %>% 
+    return_speech <- all_speeches %>% 
+      filter(id == search_id) %>% 
       funciones_limpios() 
     
   } else {
     
-    return_speech <-  speech # hay una forma más elegante de hacer esto?
+    return_speech <- all_speeches %>% 
+      filter(id == search_id) %>% 
+      select(titulo, discurso) # tal vez una opcion para filtrar metadata?
   }
     
   return_speech 
